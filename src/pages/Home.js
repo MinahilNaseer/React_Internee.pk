@@ -7,6 +7,8 @@ import TaskPortal from "../components/Task";
 import LMS from "../components/LMS";
 import InstructorPortal from "../components/instructorportal";
 import JobPortal from "../components/jobportal";
+import Testimonial from "../components/testimonals";
+import Internship from "../components/internships";
 
 function Home() {
     const controls = useAnimation();
@@ -177,70 +179,9 @@ function Home() {
                 className="h-1 bg-green-600 my-8"
             ></motion.div>
 
-            {/* Internship Cards Section */}
-            <section className="py-12 bg-white-50">
-                <div className="container mx-auto px-4">
-                    <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">Explore Internships</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {/* Card 1 */}
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <img src="/BackendDevelopment.jpg" alt="Backend Development" className="w-full h-48 object-cover" />
-                            <div className="p-4">
-                                <h4 className="text-lg font-semibold text-gray-800">Backend Development</h4>
-                                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                                    Apply Now
-                                </button>
-                            </div>
-                        </div>
-                        {/* Card 2 */}
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <img src="/App-Devel.jpg" alt="App Development Internship" className="w-full h-48 object-cover" />
-                            <div className="p-4">
-                                <h4 className="text-lg font-semibold text-gray-800">App Development Internship</h4>
-                                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                                    Apply Now
-                                </button>
-                            </div>
-                        </div>
-                        {/* Card 3 */}
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <img src="/graphic.jpg" alt="Graphic Design" className="w-full h-48 object-cover" />
-                            <div className="p-4">
-                                <h4 className="text-lg font-semibold text-gray-800">Graphic Design</h4>
-                                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                                    Apply Now
-                                </button>
-                            </div>
-                        </div>
-                        {/* Card 4 */}
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <img src="/chatbot.jpg" alt="Chatbot Development" className="w-full h-48 object-cover" />
-                            <div className="p-4">
-                                <h4 className="text-lg font-semibold text-gray-800">Chatbot Development</h4>
-                                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                                    Apply Now
-                                </button>
-                            </div>
-                        </div>
-                        {/* Card 5 */}
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <img src="/Frontend.jpg" alt="Frontend Internship" className="w-full h-48 object-cover" />
-                            <div className="p-4">
-                                <h4 className="text-lg font-semibold text-gray-800">Frontend Internship</h4>
-                                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                                    Apply Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Browse More Button */}
-                    <div className="text-center mt-8">
-                        <button className="px-6 py-3 bg-green-600 text-white rounded-full hover:bg-green-700 font-medium">
-                            Browse More Internships
-                        </button>
-                    </div>
-                </div>
-            </section>
+            <Internship/>
+
+            
             {/* Blog Section */}
             <section className="py-12 bg-gray-100">
                 <div className="container mx-auto px-4">
@@ -308,66 +249,8 @@ function Home() {
                     </div>
                 </div>
             </section>
-            {/* Testimonials Section */}
-            <section className="py-10 relative">
-                {/* Wrapper for Gradient Background */}
-                <div className="absolute inset-0 flex justify-center">
-
-
-                </div>
-                <div className="absolute inset-x-0 top-40 h-65 bg-gradient-to-r from-green-300 via-blue-300 to-pink-300 opacity-50 mx-auto max-w-5xl rounded-lg"></div>
-
-                <div className="container mx-auto px-4 text-center relative z-10">
-
-                    {/* Section Title */}
-                    <h3 className="text-4xl font-bold text-gray-800 mb-4">
-                        What Students are saying about internee.pk
-                    </h3>
-                    <p className="text-gray-600 text-lg mb-12">
-                        Around 1500+ students have said how good internee.pk helped them in their career 👨‍🎓
-                    </p>
-
-                    {/* Testimonials Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                        {/* Testimonial Card 1 */}
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <div className="flex items-center justify-center mb-4">
-                                <span className="text-yellow-500 text-xl">★★★★★</span>
-                            </div>
-                            <p className="text-gray-700 mb-4">
-                                "This platform helps students so boost their career with hands-on practice with learning as well."
-                            </p>
-                            <h4 className="font-bold text-gray-800">Rabia Zain</h4>
-                            <p className="text-gray-600 text-sm">Lahore, Pakistan</p>
-                        </div>
-
-                        {/* Testimonial Card 2 */}
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <div className="flex items-center justify-center mb-4">
-                                <span className="text-yellow-500 text-xl">★★★★★</span>
-                            </div>
-                            <p className="text-gray-700 mb-4">
-                                "Thanks to internee.pk, I grew up my skills here and now I am working as a Flutter Developer in a US company."
-                            </p>
-                            <h4 className="font-bold text-gray-800">Kashan Soomro</h4>
-                            <p className="text-gray-600 text-sm">Karachi, Pakistan</p>
-                        </div>
-
-                        {/* Testimonial Card 3 */}
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <div className="flex items-center justify-center mb-4">
-                                <span className="text-yellow-500 text-xl">★★★★★</span>
-                            </div>
-                            <p className="text-gray-700 mb-4">
-                                "I find internee.pk to be an outstanding place to get hands-on experience. Sometimes you have to spend to make a lot of projects."
-                            </p>
-                            <h4 className="font-bold text-gray-800">Mohammad Rafiq</h4>
-                            <p className="text-gray-600 text-sm">Larkana, Pakistan</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Testimonial/>
+            
             <TaskPortal />
             <LMS/>
             <InstructorPortal/>

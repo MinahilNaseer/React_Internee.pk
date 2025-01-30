@@ -46,17 +46,17 @@ function Footer() {
                     <h4 className="text-lg font-semibold text-gray-800 mb-4">Company</h4>
                     <ul className="space-y-2 text-gray-600">
                         <li>
-                            <a href="#" className="hover:text-green-600 transition">
+                            <a href="/Contact" className="hover:text-green-600 transition">
                                 Contact Us
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:text-green-600 transition">
+                            <a href="/InternshipPage" className="hover:text-green-600 transition">
                                 Internships
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:text-green-600 transition">
+                            <a href="/CompColl" className="hover:text-green-600 transition">
                                 Company
                             </a>
                         </li>
@@ -73,7 +73,7 @@ function Footer() {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:text-green-600 transition">
+                            <a href="/LoginPortal" className="hover:text-green-600 transition">
                                 Task Portal
                             </a>
                         </li>

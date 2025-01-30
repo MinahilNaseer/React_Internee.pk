@@ -28,7 +28,7 @@ function JobPortal() {
     }, [controlsImage, controlsText]);
 
     return (
-        <section id="job-portal-section" className="py-16 bg-white-50">
+        <section id="job-portal-section" className="py-16 bg-white-50 overflow-y-hidden">
             <div className="container mx-auto flex flex-col md:flex-row items-center gap-12">
                 {/* Left Section - Text */}
                 <motion.div

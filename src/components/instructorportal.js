@@ -28,7 +28,7 @@ function InstructorPortal() {
     }, [controlsImage, controlsText]);
 
     return (
-        <section id="instructor-portal-section" className="py-16 bg-white-50">
+        <section id="instructor-portal-section" className="py-16 bg-white-50 overflow-y-hidden">
             <div className="container mx-auto flex flex-col md:flex-row items-center gap-12">
                 {/* Left Section - Image */}
                 <motion.div
