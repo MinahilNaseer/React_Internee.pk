@@ -173,6 +173,7 @@ function Home() {
             </section>
             {/* Green Line Animation */}
             <motion.div
+                role="presentation"
                 initial={{ width: 0 }}
                 animate={controls}
                 transition={{ duration: 1 }}

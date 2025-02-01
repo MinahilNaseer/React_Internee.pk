@@ -10,7 +10,7 @@ function Header() {
             : "text-gray-700 hover:text-green-600";
 
     return (
-        <header className="bg-white shadow-md">
+        <header data-testid="header" className="bg-white shadow-md">
             <nav className="container mx-auto flex justify-between items-center py-4">
                 <div className="flex items-center space-x-4">
                     <img src="/logo-intern.png" alt="Internee.pk Logo" className="w-25 h-12" />
