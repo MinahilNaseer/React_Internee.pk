@@ -1,68 +1,106 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 function LoginPortal() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const validatePassword = (password) => {
+    // Password must have at least:
+    // - 8 characters
+    // - One uppercase letter
+    // - One number
+    // - One special character
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!validatePassword(password)) {
+      setError(
+        "Password must contain at least 8 characters, one uppercase letter, one number, and one special character."
+      );
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/InterneePage", { state: { email } }); // Pass email to Dashboard
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
-    <div className="flex justify-center items-center h-screen bg-white-100">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-96">
-        {/* Logo */}
-        <div className="text-center mb-6">
-          <img
-            src="/logo-intern.png" // Replace with your logo path
-            alt="Internee.pk Logo"
-            className="mx-auto w-24"
-          />
-          <h2 className="text-2xl font-bold text-green-600 mt-2">
-            Internee.pk
-          </h2>
-          <p className="text-sm text-gray-500">
-            VIRTUAL INTERNSHIP PLATFORM
-          </p>
+    <div className="flex h-full w-full justify-center bg-white-100">
+      <div className="flex w-screen h-screen bg-white rounded-lg shadow-lg">
+        <div className="flex-1 bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+          <div className="text-center">
+            <img
+              src="/people-working-computer.png"
+              alt="Illustration"
+              className="w-64 mx-auto"
+            />
+            <h1 className="text-white text-2xl font-bold mt-4">
+              Welcome Back!
+            </h1>
+            <p className="text-white mt-2 text-sm">
+              Please sign in to continue to Internee.pk
+            </p>
+          </div>
         </div>
-        {/* Login Form */}
-        <form className="space-y-4">
-          {/* Email Input */}
-          <div className="relative">
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring focus:ring-green-300 focus:outline-none"
-            />
-            <span className="absolute right-4 top-3 text-gray-400">
-              <i className="fas fa-envelope"></i>
-            </span>
-          </div>
-          {/* Password Input */}
-          <div className="relative">
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border rounded-lg text-gray-700 focus:ring focus:ring-green-300 focus:outline-none"
-            />
-            <span className="absolute right-4 top-3 text-gray-400">
-              <i className="fas fa-eye-slash"></i>
-            </span>
-          </div>
-          {/* Remember Me and Forgot Password */}
-          <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+        <div className="flex-1 flex items-center justify-center p-6 bg-gray-50">
+          <div className="w-full max-w-sm">
+            <div className="text-center mb-6">
+              <img
+                src="/logo-intern.png"
+                alt="Internee.pk Logo"
+                className="mx-auto w-20"
               />
-              <span>Remember Me</span>
-            </label>
-            <a href="#" className="text-green-600 hover:underline">
-              Forgot Password?
-            </a>
+              <h2 className="text-2xl font-bold text-green-600 mt-2">
+                Internee.pk
+              </h2>
+              <p className="text-sm text-gray-500">
+                VIRTUAL INTERNSHIP PLATFORM
+              </p>
+            </div>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring focus:ring-green-300 focus:outline-none"
+                />
+              </div>
+              <div className="relative">
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 focus:ring focus:ring-green-300 focus:outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300"
+              >
+                Sign In
+              </button>
+            </form>
           </div>
-          {/* Sign In Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300"
-          >
-            Sign In
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );
