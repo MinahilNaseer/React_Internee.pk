@@ -1,17 +1,65 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
-import TaskRow from "../components/TaskRow"; // Import TaskRow component
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import TaskRow from "../components/TaskRow"; 
+import ManageAcc from "./ManageAcc";
+import { signOut } from "firebase/auth";
+import { auth, db } from "../firebaseConfig";
+import { query, where, collection, getDocs } from "firebase/firestore";
 
 function InterneePage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const email = location.state?.email || "User";
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState({ firstName: "", lastName: "" });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const q = query(collection(db, "signups"), where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+  
+        if (!querySnapshot.empty) {
+          const userData = querySnapshot.docs[0].data();
+          const { name } = userData;
+  
+          
+          const [firstName, ...rest] = name.split(" ");
+          const lastName = rest.join(" ");
+  
+          setUserDetails({ firstName, lastName });
+        } else {
+          console.error("No user data found");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+  
+    fetchUserData();
+  }, [email]);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/LoginPortal"); 
+    } catch (error) {
+      console.error("Error during logout:", error.message);
+      alert("Failed to logout. Please try again.");
+    }
+  };
 
-  // Example task data
+  const userName = `${userDetails.firstName} ${userDetails.lastName}`.trim() || email;
+
+  
   const tasks = [
     {
       id: "TSK-000-2",
@@ -72,9 +120,36 @@ function InterneePage() {
             Pakistan's Virtual Internship Platform
           </h1>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="relative flex items-center space-x-4">
           <button className="text-white text-xl">⛶</button>
-          <span className="text-sm font-medium">{email}</span>
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="text-sm font-medium focus:outline-none flex items-center"
+            >
+              {userName} <span className="ml-1">&#x25BC;</span>
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg text-black">
+                <ul className="py-2">
+                  <li
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2"
+                    onClick={() => setIsManageModalOpen(true)}
+                  >
+                    <span className="text-gray-600">⚙️</span>
+                    <span>Manage Account</span>
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2"
+                    onClick={handleLogout}
+                  >
+                    <span className="text-gray-600">⏻</span>
+                    <span>Logout</span>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
@@ -103,7 +178,7 @@ function InterneePage() {
           <hr className="my-2 border-green-600" />
           <div className="bg-white rounded-lg shadow-md p-4 mt-4">
             <p className="text-gray-700">
-              Welcome from Internee.pk, <span className="font-bold">{email}</span>!
+              Welcome from Internee.pk, <span className="font-bold">{userName}</span>!
             </p>
           </div>
 
@@ -152,11 +227,16 @@ function InterneePage() {
         </main>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-50 text-center text-sm text-gray-500 p-4">
-        Copyright © 2024 <span className="text-green-600">Internee.pk</span>. All rights
-        reserved.
-      </footer>
+      {/* Manage Account Modal */}
+      <ManageAcc
+        isOpen={isManageModalOpen}
+        onClose={() => setIsManageModalOpen(false)}
+        user={{
+          firstName: userDetails.firstName,
+          lastName: userDetails.lastName,
+          email,
+        }}
+      />
     </div>
   );
 }

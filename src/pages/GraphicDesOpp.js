@@ -41,7 +41,7 @@ function GraphicDesOpp() {
         <>
             <button
                 className="absolute top-35 left-19 bg-green-100 text-green-600 p-2 rounded-full shadow hover:bg-green-200"
-                onClick={() => window.history.back()} // Navigates back
+                onClick={() => window.history.back()}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -16,12 +16,13 @@ import AppDevOpp from "./pages/AppDevOpp";
 import GraphicDesOpp from "./pages/GraphicDesOpp";
 import ChatbotOpp from "./pages/ChatbotOpp";
 import FrontendOpp from "./pages/FrontendOpp";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   const location = useLocation();
 
-  // Pages without header and footer
-  const noHeaderFooterPages = ["/LoginPortal", "/InterneePage"];
+  
+  const noHeaderFooterPages = ["/LoginPortal", "/InterneePage","/SignupPage"];
   const hideHeaderFooter = noHeaderFooterPages.includes(location.pathname);
 
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="/GraphicDesOpp" element={<GraphicDesOpp />} />
           <Route path="/ChatbotOpp" element={<ChatbotOpp />} />
           <Route path="/FrontendOpp" element={<FrontendOpp />} />
+          <Route path="/SignupPage" element={<SignupPage />} />
         </Routes>
       </main>
       {/* Footer */}
