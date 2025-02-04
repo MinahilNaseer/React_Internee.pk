@@ -10,22 +10,30 @@ import InternshipPage from "./pages/InternshipPage";
 import GraduateProgram from "./pages/GraduateProgram";
 import CompColl from "./pages/CompColl";
 import LoginPortal from "./pages/LoginPortal";
+import InterneePage from "./pages/InterneePage";
+import BackendOpp from "./pages/BackendOpp";
+import AppDevOpp from "./pages/AppDevOpp";
+import GraphicDesOpp from "./pages/GraphicDesOpp";
+import ChatbotOpp from "./pages/ChatbotOpp";
+import FrontendOpp from "./pages/FrontendOpp";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
-  // Hook to get the current location
   const location = useLocation();
 
-  // Pages where header and footer should not appear
-  const noHeaderFooterPages = ["/LoginPortal"];
-
-  // Check if the current path matches noHeaderFooterPages
+  
+  const noHeaderFooterPages = ["/LoginPortal", "/InterneePage","/SignupPage"];
   const hideHeaderFooter = noHeaderFooterPages.includes(location.pathname);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Conditionally render Header */}
+    <div
+      className={`${
+        hideHeaderFooter ? "h-screen bg-gradient-to-br from-green-500 to-green-700" : "min-h-screen bg-white"
+      }`}
+    >
+      {/* Header */}
       {!hideHeaderFooter && <Header />}
-      <main className="container mx-auto p-6">
+      <main className={`${hideHeaderFooter ? "h-full w-full" : "container mx-auto p-6"}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/InternshipPage" element={<InternshipPage />} />
@@ -34,20 +42,25 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/LoginPortal" element={<LoginPortal />} />
+          <Route path="/InterneePage" element={<InterneePage />} />
+          <Route path="/BackendOpp" element={<BackendOpp />} />
+          <Route path="/AppDevOpp" element={<AppDevOpp />} />
+          <Route path="/GraphicDesOpp" element={<GraphicDesOpp />} />
+          <Route path="/ChatbotOpp" element={<ChatbotOpp />} />
+          <Route path="/FrontendOpp" element={<FrontendOpp />} />
+          <Route path="/SignupPage" element={<SignupPage />} />
         </Routes>
       </main>
-      {/* Conditionally render Footer */}
+      {/* Footer */}
       {!hideHeaderFooter && <Footer />}
     </div>
   );
 }
 
-function AppWithRouter() {
+export default function AppWithRouter() {
   return (
     <Router>
       <App />
     </Router>
   );
 }
-
-export default AppWithRouter;
